@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% if title %}
+    <h5 class="text-center">{{ title }}</h5>
+    {% endif %}
+
+
+    <div style="width:600px;margin:30px auto;">
+<!---------------------------- check session if create employee successfully ---------->
+        {% if success %}
+            <p style="color: green; text-align: center; font-size: 19px;">{{ success }}</p>
+        {% endif %}
+<!---------------------------- check if non error in fields -------------------->
+        {% if form.non_field_errors %}
+            <div style="border:1px solid red;border-radius:5px;">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="post-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-3">
+                <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+                {{ field }}
+                {% if form.errors %}
+                    {% for error in field.errors %}
+                        <small class="text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% else %}
+                    <small class="text-secondary">{{ field.help_text }}</small>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+    </div>
+
+{% endblock content %}

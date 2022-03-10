@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="GET" action="{% url 'listing' %}" style="width:300px; margin: auto;">
+  <div class="mb-3">
+    <label for="search" class="form-label">Search Name or Email</label>
+    <input type="text" class="form-control" id="search" name="search" placeholder="Search...">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<p class="text-center">Employee: {{ emp.count }}</p>
+<div class="container my-5 d-flex flex-wrap">
+    {%if emp %}
+        {% for e in emp %}
+        <div class="card m-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Name : {{ e.name|truncatechars:4 }}</h5>
+            <p class="card-text">Id: {{ e.id }}</p>
+            <p class="card-text">Email: {{ e.email }}</p>
+            <p class="card-text">Contact: {{ e.contact }}</p>
+            <small class="card-text">Created at : {{ e.created|timesince }} ago</small> <br>
+              <small>( {{ e.created|date:'DATETIME_FORMAT'}} )</small> <br>
+            <small class="card-text">views: {{ e.views }}</small> <br>
+            <a href="{% url 'update' e.id %}" class="card-link">Edit</a>
+            <a href="{% url 'delete' e.id %}" class="card-link">Delete</a>
+            <a href="{% url 'views' e.id %}" class="card-link">View</a>
+          </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <p>No employee</p>
+    {% endif %}
+</div>
+<span>
+ {% if emp.has_previous %}
+ <a href="?page={{emp.previous_page_number}}">Previous</a>
+ {% endif %}
+  <span>{{ emp.number }}</span>
+ {% if emp.has_next %}
+ <a href="?page={{emp.next_page_number}}">Next</a>
+ {% endif %}
+</span>
+{% endblock content %}
