@@ -1,0 +1,147 @@
+-------------- Install dependencies by following commad:---------------
+pip3 install requirements.txt
+
+----------------------- str format----------------------
+hello hello {{value|capfirst}} Hello hello
+{{ value|default:"nothing" }} when value is false
+{{ value|length }} count length of string
+{{ value|lower }}
+{{ value|upper }}
+hello {{ value|truncatewords:2}} h...
+
+--------------------- date format-------------------------
+d.Day of the month, 2 digits with leading zeros 01 to 31
+j Day of the month without leading zeros 1 to 31
+D Day of the week, textual, 3 letters Fri
+1 Day of the week, textual, long Friday
+s English ordinal suffix for day of the month, 2 characters st, nd, rd or th
+w Day of the week, digits without leading zeros 0 (Sunday) to 6 (Saturday)
+
+
+m Month, 2 digits with leading zeros 01 to 12
+n Month without leading zeros 1 to 12 n
+M Month, textual, 3 letters Jan
+b Month, textual, 3 letters, lowercase jan
+F Month, textual, long January
+N Month abbreviation in Associated Press style. Proprietary Jan., Feb., March, May
+t Number of days in the given month 28 to 31
+             
+             
+g 1-12
+G 0-23
+h 01 -12
+H 00-23
+i 00-59
+a am pm
+A AM PM
+
+
+DATE_FORMAT_Default: 'N j, Y' Feb. 9, 2020
+DATETIME_FORMAT Default: 'N j, Y, P' Feb. 9, 2020, 10 p.m.
+SHORT_DATE_FORMAT Default: 'm/d/Y' 12/31/2020
+SHORT_DATETIME_FORMAT Default: 'm/d/Y P' 12/31/2020 4 p.m.
+TIME_FORMAT Default: "H:i" "01:24"
+
+---------------------- float format -------------------------
+56.24321 {{value|floatformat:“0"}} 56
+56.24321 {{value|floatformat:3 "}} 56,243
+
+---------------------------forloop------------------------
+forloop.counter The current iteration of the loop (1-indexed)
+forloop.counter0 The current iteration of the loop (0-indexed)
+forloop.revcounter The number of iterations from the end of the loop (1-indexed)
+forloop.revcounter0
+forloop.first
+forloop.last True if this is the last time through the loop
+forloop.parentloop For nested loops, this is the loop surrounding the current one
+
+-------------------------------- model ---------------------------
+model feilds - form feilds
+AutoField - Not Represented in the Form
+BigAutoField - Not Represented in the Form
+BigIntegerField - IntegerField with min_value set to -9223372036854775808 and max_value set to 9223372036854775807.
+BinaryField - CharField, if editable is set to True on the model field, otherwise not represented in the form.
+BooleanField - BooleanField, or NullBooleanField if null=True.
+CharField - CharField with max_length set to the model field's max_length and empty_value set to None if null=True.
+DateField - DateField
+DateTimeField  -DateTimeField
+DecimalField - DecimalField
+DurationField - DurationField
+EmailField - EmailField
+FileField - FileField
+FilePathField - FilePathField
+FloatField - FloatField
+ForeignKey - ModelChoiceField
+ImageField - ImageField
+IntegerField - IntegerField
+IPAddressField - IPAddressField
+GenericIPAddressField - GenericIPAddressField
+ManyToManyField - ModelMultipleChoiceField
+NullBooleanField - NullBooleanField
+PositiveIntegerField - IntegerField
+PositiveSmallIntegerField - IntegerField
+SlugField -SlugField
+SmallAutoField -Not represented in the form
+SmallIntegerField -IntegerField
+TextField -CharField with widget-forms.Textarea
+TimeField -TimeField
+URLField -URLField
+UUIDField -UUIDField
+
+---------------------------------------------------- queryset ---------------------------------
+#  Employee.objects.filter(name__contains='test') is aqurey like %LIKE% in sql case sensitive
+        #  Employee.objects.filter(name__icontains='test') is aqurey like %LIKE% in sql case isensitive
+        #  Employee.objects.all().count() count row
+        #  Employee.objects.filter(id=3) find employee where id =3
+        #  Employee.objects.exclude(id=3) find employee where not id=3
+        #  Employee.objects.order_by('id') order employee by id
+        #  Employee.objects.order_by('-id') order employee by id by reverse_order
+        #  Employee.objects.order_by('id').reverse() order employee by id by reverse_order
+        #  Employee.objects.order_by('id')[:5] take only 5 data from database
+        #  Employee.objects.order_by('?') order employee randomly
+        #  Employee.objects.values('name', 'id') select only name and id from employee
+        #  Employee.objects.values_list('id', 'name', named=True) same above
+        #  qurey1.intersection(qurey2) to combine the results of two or more QuerySets.
+        #  qurey1.difference(qurey2) to combine the results of none two or more QuerySets.
+        #  Employee.objects.filter(id=1) & Employee.objects.filter(email='chihe333@gmail.com') select id =1 and email='chihe333@gmail.com' or you can use intersection
+        #  Employee.objects.filter(id=1, email='chihe333@gmail.com') same above
+        #  Employee.objects.filter(Q(id=1) & Q(email='chihe333@gmail.com')) same above
+        #  Employee.objects.first('id') get first id data
+        #  u can use OR or | operator to qurey above
+        #  Employee.objects.filter(id=1).exists() boolean check if employee has id=1
+        #  Employee.objects.get_or_create(name='test', contact='333@gmail.com') if name='test' and email='333@gmail.com' exits it get otherwise it create one
+        #  Employee.objects.filter(id=1).update( contact='333@gmail.com', name='test') find id =1 and update name and contact
+        #  Employee.objects.filter(name='qq').update_or_create(contact='333@gmail.com') if name='qq' exist it update ortherwise it create new one
+        #  Employee.objects.filter(id__gt=9) select where id > 9
+        #  Employee.objects.filter(id__gte=9) select where id >= 9
+        #  Employee.objects.filter(id__lt=9) select where id < 9
+        #  Employee.objects.filter(id__lte=9) select where id <= 9
+        #  Employee.objects.filter(name__startswith='n') select all with name start with 'n' case sensitive
+        #  Employee.objects.filter(name__istartswith='n') select all with name start with 'n' case insensitive
+        #  Employee.objects.filter(name__endswith='n') select all with name end with 'n' case sensitive
+        #  Employee.objects.filter(name__iendswith='n') select all with name start with 'n' case insensitive
+        #  Employee.objects.filter(id__range=(1,5)) select range (can use with all col) EX:Employee.objects.filter(creeated__range=('2022-4-3','2022-3-9'))
+        #  from django.db.models import Avg, Sum, Min, Max, Count
+        #  Employee.objects.all().aggregate(Avg('marks')) 
+        
+------------------------------------------ sent email ---------------------------------------
+1- open 2 verification in email  https://myaccount.google.com/
+2- create app password and copy the generate app password
+3- add to settings
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "Your email"
+EMAIL_HOST_PASSWORD = "your generate app password"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+4- 
+from django.core.mail import send_mail
+def Sent():
+	send_mail(
+            "hello", subject
+            "hi", message
+            settings.EMAIL_HOST_USER, from email
+            ["chihe333@gmail.com"] to email
+        )
+--------------------------------------- loop field form by custom order -----------------------------------
+form.order_fields(field_order=['email', 'name']) use to order fields in template
