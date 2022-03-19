@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div style="width:600px;margin:30px auto;">
+<!---------------------------- check session if create employee successfully ---------->
+        {% if success %}
+            <p style="color: green; text-align: center; font-size: 19px;">{{ success }}</p>
+        {% endif %}
+
+        <form method="POST" class="post-form">
+        {% csrf_token %}
+            <div class="mb-3">
+                <label for="telegram">Sent to telegram</label>
+                <input type="text" class="form-control" name="content" id="telegram">
+            </div>
+        <button type="submit" class="btn btn-success">Sent</button>
+    </form>
+    </div>
+
+{% endblock content %}

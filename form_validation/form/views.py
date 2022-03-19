@@ -1,14 +1,13 @@
-
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.core.paginator import Paginator
-# ----------------email------------------------
-from django.utils.html import strip_tags
+# ----------------email
 from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMessage
-
+# ----------------telegram
+import telegram
 from .form import EmployeeForm, EmailForm
 from .models import Employee
 
@@ -83,13 +82,13 @@ def empEmail(request):
             html_content = get_template("email_template.html").render({'name': name, 'message': message})
             try:
                 email = EmailMessage(
-                                subject,
-                                html_content,
-                                settings.APPLICATION_EMAIL,
-                                [to],
-                                headers={'Message-ID': 'foo'},
-                                # reply_to=[settings.APPLICATION_EMAIL]
-                            )
+                    subject,
+                    html_content,
+                    settings.APPLICATION_EMAIL,
+                    [to],
+                    headers={'Message-ID': 'foo'},
+                    # reply_to=[settings.APPLICATION_EMAIL]
+                )
                 email.content_subtype = 'html'
                 success_sent = email.send(fail_silently=False)
                 if success_sent:
@@ -101,3 +100,15 @@ def empEmail(request):
         form = EmailForm()
     return render(request, 'form.html', {'form': form, 'title': 'Sent Email'})
 
+
+def social(request):
+    return render(request, 'social.html')
+
+
+def telegram(request):
+    if request.method == 'POST':
+        telegram_settings = settings.TELEGRAM
+        bot = telegram.bot(token=telegram_settings['bot_token'])
+        bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
+                         text='message_html', parse_mode=telegram.ParseMode.HTML)
+    return render(request, 'telegram.html')

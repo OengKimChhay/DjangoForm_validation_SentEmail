@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- facebook sdk-->
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0&appId=685254389585925&autoLogAppEvents=1" nonce="RnknFTgm"></script>
+
+    <div class="card m-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Name : test</h5>
+              {% load social_share %}
+              {% post_to_facebook object_or_url "https://www.youtube.com/" %}
+              {% post_to_telegram text_to_post "telegram" object_or_url "share telegram" %}
+              {% send_email subject text_to_post "email" object_or_url "share email" %}
+          </div>
+    </div>
+    <div class="border text-center">
+        how to use django-social-share <br>
+        1, pip install django-social-share <br>
+        2, INSTALLED_APPS += ['django_social_share'] <br>
+        3, add this 'django.template.context_processors.request', to TEMPLATES.OPTIONS.context_processors
+    </div><br>
+<hr><br>
+<div class="border">
+    <h3>Facebook comment</h3>
+    <div class="fb-comments" data-href="http://localhost:8000/social/" data-width="" data-numposts="5"></div>
+</div> <br>
+<hr><br>
+<div class="border">
+    <h3>like share button</h3>
+    <div class="fb-like" data-href="https://www.youtube.com/watch?v=oAUmNEUJlJ0&list=RDhLThkxsnQpk&index=4" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+</div><br>
+<hr><br>
+<div class="border">
+    <h3>Facebook Embed</h3>
+    <div class="fb-page" data-href="https://www.facebook.com/rupp.edu.kh" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"></div>
+</div>
+
+{% endblock content %}

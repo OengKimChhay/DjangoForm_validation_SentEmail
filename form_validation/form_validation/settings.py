@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'form',
-    'user_creation'
+    'user_creation',
+    'django_social_share'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [STATIC_DIR]
+
+# ------------------ Intergrate telegram -----------------
+TELEGRAM = {
+    'bot_token'   : '1978973317:AAGlbP7vSXn_n0XWQ5khT3nFUbqJJqY7jcM',
+    'channel_name': 'Test Channel',
+    'chat_id'     : '-1001573381440'
+}
