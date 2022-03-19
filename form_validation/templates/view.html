@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0&appId=685254389585925&autoLogAppEvents=1" nonce="VuDXCRpB"></script>
 <div class="container my-5 d-flex flex-wrap">
     {%if emp %}
     <div class="card m-2" style="width: 40rem;">
@@ -18,4 +19,5 @@
     {% endif %}
 </div>
 
+<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" data-width="" data-numposts="5"></div>
 {% endblock content %}
