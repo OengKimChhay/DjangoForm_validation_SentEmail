@@ -11,11 +11,136 @@
         <form method="POST" class="post-form">
         {% csrf_token %}
             <div class="mb-3">
-                <label for="telegram">Sent to telegram</label>
-                <input type="text" class="form-control" name="content" id="telegram">
+                <label for="telegram">Sent text to telegram</label>
+                <input type="text" class="form-control" name="content" id="">
+            </div>
+            <div class="mb-3">
+                <label for="telegram">Sent photo telegram</label>
+                <input type="text" class="form-control" name="photo" id="">
+            </div>
+            <h5>Sned Location to telegram</h5>
+            <div class="mb-3 d-flex">
+                <div class="mb-3">
+                    <label for="lat">Latitute</label>
+                    <input type="text" class="form-control" name="lat" id="lat">
+                </div>
+                <div class="mb-3">
+                    <label for="lon">Longitute</label>
+                    <input type="text" class="form-control" name="lon" id="lon">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="doc">Sent document telegram</label>
+                <input type="text" class="form-control" name="doc" id="doc">
             </div>
         <button type="submit" class="btn btn-success">Sent</button>
     </form>
     </div>
+<br>
+<hr>
+<div style="width:900px;margin:auto;">
+    <h3>How to use</h3>
+    <p>see official docs <a href="https://github.com/eternnoir/pyTelegramBotAPI"><b>https://github.com/eternnoir/pyTelegramBotAPI</b></a></p>
+    <p>or <a href="https://pypi.org/project/pyTelegramBotAPI/">https://pypi.org/project/pyTelegramBotAPI/</a></p>
+    <ol>
+        <li>
+            <p>install telegrambot run: <b>pip install pyTelegramBotAPI</b>  (recommended)</p>
+            <p>or: <b>pip install git+https://github.com/eternnoir/pyTelegramBotAPI.git</b></p>
+            <p>or: <b>pip install pytelegrambotapi --upgrade</b></p>
+        </li>
+        <li><p>in view</p>
+            <p>import telebot</p>
+            <p>bot = telebot.TeleBot("YOUR_BOT_TOKEN")</p>
+            <p>
+                import telebot <br>
+<br>
+TOKEN = 'token_string' <br>
+tb = telebot.TeleBot(TOKEN)	#create a new Telegram Bot object <br>
+<br>
+# Upon calling this function, TeleBot starts polling the Telegram servers for new messages.<br>
+# - interval: int (default 0) - The interval between polling requests<br>
+# - timeout: integer (default 20) - Timeout in seconds for long polling.<br>
+# - allowed_updates: List of Strings (default None) - List of update types to request<br>
+tb.infinity_polling(interval=0, timeout=20)<br>
+<br>
+# getMe<br>
+user = tb.get_me()<br>
+<br>
+# setWebhook<br>
+tb.set_webhook(url="http://example.com", certificate=open('mycert.pem'))<br>
+# unset webhook<br>
+tb.remove_webhook()<br>
+<br>
+# getUpdates<br>
+updates = tb.get_updates()<br>
+# or<br>
+updates = tb.get_updates(1234,100,20) #get_Updates(offset, limit, timeout):<br>
+<br>
+# sendMessage<br>
+tb.send_message(chat_id, text)<br>
+<br>
+# editMessageText<br>
+tb.edit_message_text(new_text, chat_id, message_id)<br>
+<br>
+# forwardMessage<br>
+tb.forward_message(to_chat_id, from_chat_id, message_id)<br>
+<br>
+# All send_xyz functions which<br> can take a file as an argument, can also take a file_id instead of a file.<br>
+# sendPhoto<br>
+photo = open('/tmp/photo.png', 'rb')<br>
+tb.send_photo(chat_id, photo)<br>
+tb.send_photo(chat_id, "FILEID")<br>
+<br>
+# sendAudio<br>
+audio = open('/tmp/audio.mp3', 'rb')<br>
+tb.send_audio(chat_id, audio)<br>
+tb.send_audio(chat_id, "FILEID")<br>
+<br>
+## sendAudio with duration, performer and title.<br>
+tb.send_audio(CHAT_ID, file_data, 1, 'eternnoir', 'pyTelegram')<br>
+<br>
+# sendVoice<br>
+voice = open('/tmp/voice.ogg', 'rb')<br>
+tb.send_voice(chat_id, voice)<br>
+tb.send_voice(chat_id, "FILEID")<br>
 
+# sendDocument<br>
+doc = open('/tmp/file.txt', 'rb')<br>
+tb.send_document(chat_id, doc)<br>
+tb.send_document(chat_id, "FILEID")<br>
+<br>
+# sendSticker<br>
+sti = open('/tmp/sti.webp', 'rb')<br>
+tb.send_sticker(chat_id, sti)<br>
+tb.send_sticker(chat_id, "FILEID")<br>
+<br>
+# sendVideo<br>
+video = open('/tmp/video.mp4', 'rb')<br>
+tb.send_video(chat_id, video)<br>
+tb.send_video(chat_id, "FILEID")<br>
+<br>
+# sendVideoNote<br>
+videonote = open('/tmp/videonote.mp4', 'rb')<br>
+tb.send_video_note(chat_id, videonote)<br>
+tb.send_video_note(chat_id, "FILEID")<br>
+<br>
+# sendLocation<br>
+tb.send_location(chat_id, lat, lon)<br>
+<br>
+# sendChatAction<br>
+# action_string can be one of the following strings: 'typing', 'upload_photo', 'record_video', 'upload_video',<br>
+# 'record_audio', 'upload_audio', 'upload_document' or 'find_location'.<br>
+tb.send_chat_action(chat_id, action_string)<br>
+<br>
+# getFile<br>
+# Downloading a file is straightforward<br>
+# Returns a File object<br>
+import requests<br>
+file_info = tb.get_file(file_id)<br>
+<br>
+file = requests.get('https://api.telegram.org/file/bot{0}/{1}'.format(API_TOKEN, file_info.file_path))
+            </p>
+        </li>
+    </ol>
+</div>
 {% endblock content %}

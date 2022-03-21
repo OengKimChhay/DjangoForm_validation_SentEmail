@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # <-- UPDATED line
         'NAME': 'django_form_validation',  # <-- UPDATED line
         'USER': 'root',  # <-- UPDATED line
-        'PASSWORD': '123456',  # <-- UPDATED line
+        'PASSWORD': 'root3333',  # <-- UPDATED line
         'HOST': 'localhost',  # <-- UPDATED line
         'PORT': '3306',
     }
@@ -134,7 +134,7 @@ STATICFILES_DIRS = [STATIC_DIR]
 
 # ------------------ Intergrate telegram -----------------
 TELEGRAM = {
-    'bot_token'   : '1978973317:AAGlbP7vSXn_n0XWQ5khT3nFUbqJJqY7jcM',
-    'channel_name': 'Test Channel',
-    'chat_id'     : '-1001573381440'
+    'token': '1978973317:AAGlbP7vSXn_n0XWQ5khT3nFUbqJJqY7jcM',
+    'chat_id': '-1001573381440',
+    # 'proxy': 'https://telegg.ru/orig/bot'
 }
