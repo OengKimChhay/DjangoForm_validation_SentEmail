@@ -3,13 +3,14 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.core.paginator import Paginator
 # ----------------email
-from django.template.loader import get_template
 from django.conf import settings
+from django.template.loader import get_template
 from django.core.mail import EmailMessage
-# ----------------telegram
-import telegram
+
 from .form import EmployeeForm, EmailForm
 from .models import Employee
+# --------------- telegram -------------
+from form.telegrambot import sent_message, sent_photo, send_location, send_document
 
 
 def emp(request):
@@ -107,8 +108,20 @@ def social(request):
 
 def telegram(request):
     if request.method == 'POST':
-        telegram_settings = settings.TELEGRAM
-        bot = telegram.bot(token=telegram_settings['bot_token'])
-        bot.send_message(chat_id="@%s" % telegram_settings['channel_name'],
-                         text='message_html', parse_mode=telegram.ParseMode.HTML)
+        content = request.POST.get('content')
+        photo = request.POST.get('photo')
+        lat = request.POST.get('lat')
+        lon = request.POST.get('lon')
+        doc = request.POST.get('doc')
+        try:
+            if content:
+                sent_message(content)
+            elif photo:
+                sent_photo(photo)
+            elif lat and lon:
+                send_location(lat, lon)
+            elif doc:
+                send_document(doc)
+        except Exception as e:
+            return HttpResponse(e)
     return render(request, 'telegram.html')
