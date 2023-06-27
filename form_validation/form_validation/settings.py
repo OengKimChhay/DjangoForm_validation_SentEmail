@@ -118,7 +118,7 @@ USE_TZ = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "OengKimChhay3333@gmail.com"
+EMAIL_HOST_USER = "youemail@gmail.com"
 EMAIL_HOST_PASSWORD = "teuheaomldqqoefx"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 APPLICATION_EMAIL = 'Admin<jitukasaudhan144@gmail.com>'
@@ -134,7 +134,7 @@ STATICFILES_DIRS = [STATIC_DIR]
 
 # ------------------ Intergrate telegram -----------------
 TELEGRAM = {
-    'token': '1978973317:AAGlbP7vSXn_n0XWQ5khT3nFUbqJJqY7jcM',
-    'chat_id': '-1001573381440',
+    'token': 'youtoken',
+    'chat_id': 'chay_id',
     # 'proxy': 'https://telegg.ru/orig/bot'
 }
